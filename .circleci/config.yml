@@ -19,4 +19,11 @@ jobs: # a collection of steps
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+      - add_ssh_keys:
+          fingerprints:
+            - "04:58:f8:ac:82:c2:8a:60:e8:ec:7b:1b:42:84:a9:59"      
+      - deploy:
+          name: deployment
+          command: ssh -o "StrictHostKeyChecking no" root@165.227.114.98 "cd ~/TutorialApp && git add . && git stash && git pull && sh post_deployment.sh"
+      
 
